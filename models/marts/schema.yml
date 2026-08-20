@@ -1,0 +1,117 @@
+version: 2
+
+models:
+
+  - name: product
+    description: Root insurance product entity
+
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+
+  - name: hospital_cover
+
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('product')
+                field: product_id
+
+
+  - name: medical_service
+
+    columns:
+      - name: medical_service_id
+        tests:
+          - not_null
+          - unique
+
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('product')
+                field: product_id
+
+
+  - name: general_health_service
+
+    columns:
+      - name: general_health_service_id
+        tests:
+          - not_null
+          - unique
+
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('product')
+                field: product_id
+
+
+  - name: general_health_benefit
+
+    columns:
+      - name: benefit_id
+        tests:
+          - not_null
+          - unique
+
+      - name: general_health_service_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('general_health_service')
+                field: general_health_service_id
+
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('product')
+                field: product_id
+
+
+  - name: benefit_limit
+
+    columns:
+      - name: benefit_limit_id
+        tests:
+          - not_null
+          - unique
+
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('product')
+                field: product_id
+
+
+  - name: benefit_limit_service
+
+    columns:
+      - name: benefit_limit_service_id
+        tests:
+          - not_null
+          - unique
+
+      - name: benefit_limit_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('benefit_limit')
+                field: benefit_limit_id
