@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: sftp_naag_xml
+    database: NAAG_POSTGRES
+    schema: SFTP_NAAG_XML
+
+    tables:
+      - name: customer_data
+        description: Raw XML documents landed by Fivetran
+
+        columns:
+          - name: _FILE
+            description: Source XML filename
+
+          - name: _DATA
+            description: Raw XML document as text
